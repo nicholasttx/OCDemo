@@ -29,7 +29,7 @@ spec:
         creator: willie 
     spec:
       containers:
-      - image: ikubernetes/myapp:v1
+      - image: ikubernetes/mini-http-server:latest
         imagePullPolicy: IfNotPresent
         name: willieweb
         ports:
