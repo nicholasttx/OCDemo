@@ -28,7 +28,7 @@ spec:
       creator: willie 
     spec:
       containers:
-        image: ikubernetes/myapp:v1
+      - image: ikubernetes/myapp:v1
         imagePullPolicy: IfNotPresent
         name: willieweb
         ports:
