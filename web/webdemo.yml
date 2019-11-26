@@ -8,28 +8,32 @@ metadata:
   name: willieweb
 spec:
   replicas: 2
-strategy:
-  activeDeadlineSeconds: 21600
-  rollingParams:
-    intervalSeconds: 1
-    maxSurge: 25%
-    maxUnavailable: 25%
-    timeoutSeconds: 600
-    updatePeriodSeconds: 1
-  type: Rolling  
-template:
-  metadata:
+  selector:
     app: willieweb
     location: dall3
-    creator: willie 
-  spec:
-    containers:
-      image: ikubernetes/myapp:v1
-      imagePullPolicy: IfNotPresent
-      name: willieweb
-      ports:
-        - containerPort: 8080
-          protocol: TCP
+    creator: willie
+  strategy:
+    activeDeadlineSeconds: 21600
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling  
+  template:
+    metadata:
+      app: willieweb
+      location: dall3
+      creator: willie 
+    spec:
+      containers:
+        image: ikubernetes/myapp:v1
+        imagePullPolicy: IfNotPresent
+        name: willieweb
+        ports:
+          - containerPort: 8080
+            protocol: TCP
          
 
 
