@@ -3,8 +3,8 @@ kind: DeploymentConfig
 metadata:
   labels:
     app: willieweb
-	location: dal13
-	creater: willie
+    location: dall3
+    creator: willie
   name: willieweb
 spec:
   replicas: 2
@@ -20,8 +20,8 @@ strategy:
 template:
   metadata:
     app: willieweb
-	location: dal13
-	creater: willie  
+    location: dall3
+    creator: willie 
   spec:
     containers:
       image: ikubernetes/myapp:v1
