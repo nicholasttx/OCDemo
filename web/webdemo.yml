@@ -23,9 +23,10 @@ spec:
     type: Rolling  
   template:
     metadata:
-      app: willieweb
-      location: dall3
-      creator: willie 
+      lables:
+        app: willieweb
+        location: dall3
+        creator: willie 
     spec:
       containers:
       - image: ikubernetes/myapp:v1
