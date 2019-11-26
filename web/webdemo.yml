@@ -23,7 +23,7 @@ spec:
     type: Rolling  
   template:
     metadata:
-      lables:
+      labels:
         app: willieweb
         location: dal13
         creator: willie 
