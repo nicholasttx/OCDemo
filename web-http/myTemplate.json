@@ -24,7 +24,7 @@
       "description": "Custom hostname for willieweb application.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
       "displayName": "Application route",
       "name": "APPLICATION_HOSTNAME"
-    },
+    }
 
   ],
   "objects": [
