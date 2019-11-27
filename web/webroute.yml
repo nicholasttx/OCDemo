@@ -12,5 +12,6 @@ spec:
   to:
     kind: Service
     name: willieweb-service
-  port: 8080
+  port:
+    targetPort: 8080
       
