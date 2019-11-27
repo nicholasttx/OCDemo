@@ -62,16 +62,7 @@
             },
             "incremental": false
           }
-        },
-        "output": {
-          "to": {
-            "kind": "ImageStreamTag",
-            "name": "${APPLICATION_NAME}:latest"
-          }
-        },
-        "resources": {},
-        "postCommit": {}
-      }
+        }
     },
     {
       "kind": "DeploymentConfig",
