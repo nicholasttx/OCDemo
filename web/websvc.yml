@@ -4,8 +4,8 @@ metadata:
   name: willieweb-service
 spec:
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 18080
+      targetPort: 18080
   selector:
     app: willieweb
     location: dal13

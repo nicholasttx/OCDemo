@@ -33,7 +33,7 @@ spec:
         imagePullPolicy: IfNotPresent
         name: willieweb
         ports:
-        - containerPort: 8080
+        - containerPort: 18080
           protocol: TCP
          
 
