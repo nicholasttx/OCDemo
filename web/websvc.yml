@@ -2,9 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: willieweb-service
+  labels:
+    app: willieweb
+    location: dal13
+    creator: willie
 spec:
   ports:
-    - port: 18080
+    - name: 10800-tcp
+      protocl: TCP
+      port: 18080
       targetPort: 18080
   selector:
     app: willieweb

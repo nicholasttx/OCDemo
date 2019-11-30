@@ -32,7 +32,7 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "http"
+        "name": "httpd"
       },
       "spec": {
         "tags": [
