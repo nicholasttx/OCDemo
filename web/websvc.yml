@@ -8,7 +8,7 @@ metadata:
     creator: willie
 spec:
   ports:
-    - name: 10800-tcp
+    - name: 18080-tcp
       protocl: TCP
       port: 18080
       targetPort: 18080
