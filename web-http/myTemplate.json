@@ -110,7 +110,7 @@
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "${APPLICATION_NAME}:latest"
+                "name": "httpd:latest"
               }
             }
           }
