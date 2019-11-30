@@ -63,6 +63,7 @@
             "incremental": false
           }
         }
+	  }
     },
     {
       "kind": "DeploymentConfig",
@@ -129,7 +130,7 @@
             "containers": [
               {
                 "name": "${APPLICATION_NAME}",
-                "image": "${APPLICATION_NAME}",
+                "image": "httpd:latest",
                 "ports": [
                   {
                     "containerPort": 28080,
