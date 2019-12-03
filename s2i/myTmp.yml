@@ -48,7 +48,7 @@ objects:
       output:
         to: 
           kind: ImageStreamTag
-          name: ${IMAGE_PULL_NAME}         
+          name: ${IMAGE_PULL_NAME}:latest         
     labels:
       app: ${APPLICATION_NAME}
   - kind: ImageStream
