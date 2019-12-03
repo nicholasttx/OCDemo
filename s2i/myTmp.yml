@@ -23,7 +23,7 @@ parameters:
     required: true
   - name: IMAGE_PULL_NAME
     description: This is the name used for pulling image for buildconfig section
-    value: mytemplate-http:v1
+    value: mytmplhttp:v1
     required: true
 objects:
   - kind: BuildConfig
@@ -32,25 +32,25 @@ objects:
       name: ${APPLICATION_NAME}
       annotations:
         description: Test for how to make template and buildconfig/s2i
-      spec:
-        source:
-          type: Git
-          git:
-            uri: "${SOURCE_REPOSITORY_URI}"
-            ref: master
-        strategy:
-          type: Source
-          sourceStrategy:            
-            from:
-              kind: ImageStreamTag
-              name: "php:7.1"
-              namespace: openshift          
-        output:
-          to: 
+    spec:
+      source:
+        type: Git
+        git:
+          uri: "${SOURCE_REPOSITORY_URI}"
+          ref: master
+      strategy:
+        type: Source
+        sourceStrategy:            
+          from:
             kind: ImageStreamTag
-            name: ${IMAGE_PULL_NAME}         
-      labels:
-        app: ${APPLICATION_NAME}
+            name: "php:7.1"
+            namespace: openshift          
+      output:
+        to: 
+          kind: ImageStreamTag
+          name: ${IMAGE_PULL_NAME}         
+    labels:
+      app: ${APPLICATION_NAME}
       
 
           
