@@ -19,7 +19,7 @@ parameters:
   - name: APPLICATION_NAME
     description: Name of application
     displayName: Application Name
-    value: myTemplate_http
+    value: mytemplate-http
     required: true
   - name: IMAGE_PULL_NAME
     description: This is the name used for pulling image for buildconfig section
@@ -44,6 +44,7 @@ objects:
               kind: "ImageStreamTag"
               name: "php:7.1"
               namespace: openshift
+          type: Source
         output:
           to: 
             kind: "DockerImage"
