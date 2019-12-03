@@ -55,12 +55,14 @@ objects:
     apiVersion: v1
     metadata:
       name: ${IMAGE_PULL_NAME}
+      namespace: openshift
       labels:
         app: ${APPLICATION_NAME}
     spec: 
-      dockerImageRepository: ""
       tags:
        - name: latest      
+         referencePolicy: 
+           type: Local
   - kind: DeploymentConfig
     apiVersion: v1
     metadata:
