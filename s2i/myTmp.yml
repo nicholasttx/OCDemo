@@ -41,17 +41,18 @@ objects:
         strategy:
           sourceStrategy:
             from:
-              kind: ImageStreamTag
-              name: 'php:7.1'
+              kind: "ImageStreamTag"
+              name: "php:7.1"
               namespace: openshift
             from: Source
-      labels:
-        app: ${APPLICATION_NAME}
-      spec:
         output:
           to: 
-            kind: DockerImage
-            name: ${IMAGE_PULL_NAME}
+            kind: "DockerImage"
+            name: ${IMAGE_PULL_NAME}            
+      labels:
+        app: ${APPLICATION_NAME}
+      
+
           
   - kind: DeploymentConfig
     apiVersion: v1
