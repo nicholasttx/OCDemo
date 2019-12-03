@@ -23,7 +23,7 @@ parameters:
     required: true
   - name: IMAGE_PULL_NAME
     description: This is the name used for pulling image for buildconfig section
-    value: mytmplhttp:v1
+    value: mytmplhttp
     required: true
 objects:
   - kind: BuildConfig
@@ -51,9 +51,16 @@ objects:
           name: ${IMAGE_PULL_NAME}         
     labels:
       app: ${APPLICATION_NAME}
-      
-
-          
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      name: ${IMAGE_PULL_NAME}
+      labels:
+        app: ${APPLICATION_NAME}
+    spec: 
+      dockerImageRepository: ""
+      tags:
+       - name: latest      
   - kind: DeploymentConfig
     apiVersion: v1
     metadata:
@@ -81,7 +88,7 @@ objects:
           containers:
           - image: ${IMAGE_PULL_NAME}
             imagePullPolicy: IfNotPresent
-            name: willieweb
+            name: ${APPLICATION_NAME}
             ports:
             - containerPort: 18080
               protocol: TCP  
