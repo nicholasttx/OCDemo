@@ -23,7 +23,7 @@ parameters:
     required: true
   - name: IMAGE_PULL_NAME
     description: This is the name used for pulling image for buildconfig section
-    value: mymsjl/myapphttp:v1
+    value: mytemplate-http:v1
     required: true
 objects:
   - kind: BuildConfig
@@ -39,16 +39,16 @@ objects:
             uri: "${SOURCE_REPOSITORY_URI}"
             ref: master
         strategy:
-          SourceStrategy:
-            from:
-              kind: "ImageStreamTag"
-              name: "php:7.1"
-              namespace: openshift
           type: Source
+          sourceStrategy:            
+            from:
+              kind: ImageStreamTag
+              name: "php:7.1"
+              namespace: openshift          
         output:
           to: 
-            kind: "DockerImage"
-            name: ${IMAGE_PULL_NAME}            
+            kind: ImageStreamTag
+            name: ${IMAGE_PULL_NAME}         
       labels:
         app: ${APPLICATION_NAME}
       
