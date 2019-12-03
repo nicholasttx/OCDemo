@@ -44,7 +44,6 @@ objects:
               kind: "ImageStreamTag"
               name: "php:7.1"
               namespace: openshift
-            from: Source
         output:
           to: 
             kind: "DockerImage"
