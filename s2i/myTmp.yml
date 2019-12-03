@@ -5,7 +5,7 @@ metadata:
   annotations:
     display-name: "My demo code for testing"
     tags: "demo,php,http"
-    iconClass:icon-php    
+    iconClass: icon-php    
 labels:
   app: ${APPLICATION_NAME}
   owner: willie
