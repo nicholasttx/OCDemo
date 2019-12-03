@@ -29,7 +29,7 @@ spec:
         creator: willie 
     spec:
       containers:
-      - image: mymsjl/myhttpapp:v2
+      - image: mymsjl/myhttpapp:apache
         imagePullPolicy: IfNotPresent
         name: willieweb
         ports:
