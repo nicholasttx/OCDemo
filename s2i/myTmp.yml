@@ -39,7 +39,7 @@ objects:
             uri: "${SOURCE_REPOSITORY_URI}"
             ref: master
         strategy:
-          sourceStrategy:
+          SourceStrategy:
             from:
               kind: "ImageStreamTag"
               name: "php:7.1"
