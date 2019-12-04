@@ -60,9 +60,14 @@ objects:
         app: ${APPLICATION_NAME}
     spec: 
       tags:
-       - name: latest      
-         referencePolicy: 
-           type: Local
+      - name: latest      
+        referencePolicy: 
+          type: Local
+        from: 
+          kind: DockerImage
+          name: openshift/${IMAGE_PULL_NAME}
+        importPolicy:
+          insecure: true
   - kind: DeploymentConfig
     apiVersion: v1
     metadata:
