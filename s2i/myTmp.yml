@@ -109,7 +109,7 @@ objects:
           - ${APPLICATION_NAME}    
           from:
             kind: ImageStreamTag
-            namespace: openshift
+            namespace: mydemo
             name: ${IMAGE_PULL_NAME}:latest        
       - type: ConfigChange            
   - kind: Service
