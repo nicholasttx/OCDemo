@@ -32,6 +32,8 @@ objects:
       name: ${APPLICATION_NAME}
       annotations:
         description: Test for how to make template and buildconfig/s2i
+      labels:
+        app: ${APPLICATION_NAME}
     spec:
       source:
         type: Git
@@ -49,8 +51,8 @@ objects:
         to: 
           kind: ImageStreamTag
           name: ${IMAGE_PULL_NAME}:latest         
-    labels:
-      app: ${APPLICATION_NAME}
+      triggers:
+      - type: ImageChange
   - kind: ImageStream
     apiVersion: v1
     metadata:
@@ -99,7 +101,16 @@ objects:
             ports:
             - containerPort: 18080
               protocol: TCP  
-              
+      triggers: 
+      - type: ImageChange
+        imageChangeParams:
+          automatic: true
+          containerNames:
+          - ${APPLICATION_NAME}    
+          from:
+            kind: ImageStreamTag
+            namespace: openshift
+            name: ${IMAGE_PULL_NAME}:latest            
   - kind: Service
     apiVersion: v1
     metadata:
