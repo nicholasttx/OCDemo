@@ -4,7 +4,7 @@ metadata:
   name: my-template
   annotations:
     display-name: "My demo code for testing"
-    tags: "demo,php,http"
+    tags: "demo,php,ssl"
     iconClass: icon-php    
 labels:
   app: ${APPLICATION_NAME}
@@ -19,7 +19,7 @@ parameters:
   - name: APPLICATION_NAME
     description: Name of application
     displayName: Application Name
-    value: mytemplate-http
+    value: mytemplate-ssl
     required: true
   - name: IMAGE_PULL_NAME
     description: This is the name used for pulling image for buildconfig section
