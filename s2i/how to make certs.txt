@@ -1,0 +1,115 @@
+# making certs and private keys
+
+[root@master mydemo]# keytool -genkey -keyalg RSA -alias selfsigned -keystore keystore.jks -storepass <YOUR_PASSWORD> -validity 365 -keysize 2048
+
+
+Enter key password for <selfsigned>
+	(RETURN if same as keystore password):  
+Re-enter new password: 
+
+Warning:
+The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS12 which is an industry standard format using "keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.jks -deststoretype pkcs12".
+
+
+===
+
+[root@master mydemo]# keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.p12 -srcstoretype jks -deststoretype pkcs12
+Importing keystore keystore.jks to keystore.p12...
+Enter destination keystore password:  
+Re-enter new password: 
+Enter source keystore password:  
+Entry for alias selfsigned successfully imported.
+Import command completed:  1 entries successfully imported, 0 entries failed or cancelled
+
+
+======
+
+
+[root@master mydemo]# openssl pkcs12 -in keystore.p12 -nodes -password pass:<YOUR_PASSWORD>
+MAC verified OK
+Bag Attributes
+    friendlyName: selfsigned
+    localKeyID: 54 69 6D 65 20 31 35 37 35 33 39 32 33 36 34 37 37 33 
+Key Attributes: <No Attributes>
+
+
+-----BEGIN PRIVATE KEY-----
+MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCSk1lJwEPtd/WS
+wJ0qWsDRMousThs7HFApNcwcuS346Zp8lSYEBa9rGoWIRQ276doPDSL+Put3RA10
+rSFry4Dsy+ADmQj/CQ1Y+Kcf7mrXht+6CjYhmhHSWL2nALJMtt73N3Omwpl+FvJf
+wqZ/gGQYF31pgpQCSrzsXhNaT/+SSDvNjTtgaC5y2p48t8digZWHv5ywCKCxVX0B
+iSIV2gkjZpcCaC53XlJwfzwRpPP+kdYfUMsNuwmu+3e94XKYtK/ZglnWvj5zI/wO
+2VW/+acqhIDqToFCQq/hkLi928QB8IhwPo1xJoKQhSwGdh2Dmr+ly+gRcrFXa3qR
+L+uZr+jVAgMBAAECggEASkOX6LMed5Hg/bLTrqL+sL+wXuPQDjoBL3APc7orXcNW
+P6r98OnEgDqWz31VQRFyJ1Abm7/bY7k6LBSQK2KXduKxJIGEOlumxJ5vZtFQltTC
+RCtqU8oRH4dQx+2laRL6kz0oPqS4SldsBDLGUzGFBWPZafz76tFdOVFM8uQ3dDCa
+m5LjfdsXnMkW8CsgTV0KdXvWcQXal+R9+LP7eaY7GLzHB8U7aP1kUp17zt+X0NM2
+S0sSmjCZGm05pxGU1Kcm3UQmfC34VuYi7aEb+3DFtststAbFTrozZj+lo7y3sUa7
+2n+wbtvhZuKa/LMEaqw4xnlAkBw4EWGO7Y7FW4n4PQKBgQDIfQMtjFfinsOXcujS
+ORSEG00Uq6YLUQm4FjqGr2iqFD9RYlp5kmmAeVLIuBe+jAri3piqZLwvXCR0gEFM
+lvemaiD1Gh7X13N/O8V1Q7tf8aQPwsdhfopRGRMRrn/1Vpw2q6CKqmrVv63eqX68
+p6BAEcYEf5foxmPj+UeSLnA6lwKBgQC7KOZkctkHk1qihZurUooE8Aa4PgU44pLS
+nCzcQcE2+g+JIICmHPn1ytguNOWMeJY07X2K4dJxWyf2tdFWRnpj75G4PtvbK/7d
+lTUIEf9/QHRLYZX2b9HLuag0A14INuEJGENabGdv41IyDZhZETOEBXaK4+MnoUbd
+8Bnak60BcwKBgHyM/U5so6SL0SLjJjSDdXVkqIww3qSlIY6VcKJ/klwm2/cpTN+9
+z4Ea3g0IIOglhBXRB7LDhg0+Bv/BNc/o8c0WnYbnRUX9+SiP72mcPGmsaqnH7alp
+vXAITcpsR94Ygk+Ma935ZQmJXPC5B50X3fwvjn747VyU8zWLhaUQ6HPdAoGAX29J
+m+rcM/q1eq36ZO/fpQjnxEcLzqfqCi7MyTtWVLxJ87h5ITshUm4usdETQ/+xSCfZ
+nlnsPxUmWaz4o6+odRESEwsqfKYAfei5c/YJfE/XfSCzoUf/iIyQ8oTNDA8/zK1s
+ms0wKWOW5CL+jlwxEp7ehZASooCgbEckR8qJq3UCgYBATstC5lV+AmIT3Q9igr8Y
+PpLrwSOqVyEmQ4vh93PHfUh1VXI0pUgXWe/jT0g+ZfqgpKSY+Y6rWdKI3lOG9hS1
+RoNj9UL0TzSrzkSRKSPM5SlHTNoIY2yiOfnvIl3RJDr4gyEdSAIxMWQzUuGOVrQ3
+3LWRu0TBbOHOvno/ibzN7Q==
+-----END PRIVATE KEY-----
+
+
+
++++++++++++++++++++++++
+
+
+Bag Attributes
+    friendlyName: selfsigned
+    localKeyID: 54 69 6D 65 20 31 35 37 35 33 39 32 33 36 34 37 37 33 
+subject=/C=75244/ST=TX/L=Dallas/O=IBM/OU=Fabric 2.0/CN=Willie Tang
+issuer=/C=75244/ST=TX/L=Dallas/O=IBM/OU=Fabric 2.0/CN=Willie Tang
+
+
+
+-----BEGIN CERTIFICATE-----
+MIIDbTCCAlWgAwIBAgIEXmKs2DANBgkqhkiG9w0BAQsFADBnMQ4wDAYDVQQGEwU3
+NTI0NDELMAkGA1UECBMCVFgxDzANBgNVBAcTBkRhbGxhczEMMAoGA1UEChMDSUJN
+MRMwEQYDVQQLEwpGYWJyaWMgMi4wMRQwEgYDVQQDEwtXaWxsaWUgVGFuZzAeFw0x
+OTEyMDMxNjU2NDFaFw0yMDEyMDIxNjU2NDFaMGcxDjAMBgNVBAYTBTc1MjQ0MQsw
+CQYDVQQIEwJUWDEPMA0GA1UEBxMGRGFsbGFzMQwwCgYDVQQKEwNJQk0xEzARBgNV
+BAsTCkZhYnJpYyAyLjAxFDASBgNVBAMTC1dpbGxpZSBUYW5nMIIBIjANBgkqhkiG
+9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkpNZScBD7Xf1ksCdKlrA0TKLrE4bOxxQKTXM
+HLkt+OmafJUmBAWvaxqFiEUNu+naDw0i/j7rd0QNdK0ha8uA7MvgA5kI/wkNWPin
+H+5q14bfugo2IZoR0li9pwCyTLbe9zdzpsKZfhbyX8Kmf4BkGBd9aYKUAkq87F4T
+Wk//kkg7zY07YGguctqePLfHYoGVh7+csAigsVV9AYkiFdoJI2aXAmgud15ScH88
+EaTz/pHWH1DLDbsJrvt3veFymLSv2YJZ1r4+cyP8DtlVv/mnKoSA6k6BQkKv4ZC4
+vdvEAfCIcD6NcSaCkIUsBnYdg5q/pcvoEXKxV2t6kS/rma/o1QIDAQABoyEwHzAd
+BgNVHQ4EFgQUJHStV5G+A4DB57Qq7wyYnZyMP4wwDQYJKoZIhvcNAQELBQADggEB
+AHfLEDLnPQHMYlRpkZ2p55wGilk0txK6oGHC4/+ho3FfIKuri3bR+tSi8g1iHkuY
+nn7gtA9pyXer3Y3TDIW9o7uBNABqyLDSfOGwlGGGbdvrC3cTwalN2oYIqxlaZ98u
+1EVd27L2dgIrABGbCgumii7C2nl40I7K1z+PUZPKSizl3xe6eyxcpEs/iecK3OnB
+XJi3WOqBMdfUa4KakDA9ZhNBGeaAAHSa96xl0lXAq2EazptHX3IEglDOqp/9+htk
+wOt0AuD8o2oCX40lPTR+ALIAdQlVlt9RfcIhg9r1G3fo0b8ENBohPptA0D9gYXAw
+sAPMsf0I7+P7Gnig0k4bhvI=
+-----END CERTIFICATE-----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

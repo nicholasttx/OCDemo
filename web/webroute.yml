@@ -7,8 +7,8 @@ metadata:
     creator: willie
   name: willieweb-route
 spec:
-  host: www.willieweb.com
-  path: "/"
+  host: 
+  path: 
   to:
     kind: Service
     name: willieweb-service

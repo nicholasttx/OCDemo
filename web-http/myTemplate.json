@@ -32,7 +32,7 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "http"
+        "name": "httpd"
       },
       "spec": {
         "tags": [
@@ -63,6 +63,7 @@
             "incremental": false
           }
         }
+	  }
     },
     {
       "kind": "DeploymentConfig",
@@ -109,7 +110,7 @@
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "${APPLICATION_NAME}:latest"
+                "name": "httpd:latest"
               }
             }
           }
@@ -129,7 +130,7 @@
             "containers": [
               {
                 "name": "${APPLICATION_NAME}",
-                "image": "${APPLICATION_NAME}",
+                "image": "httpd:latest",
                 "ports": [
                   {
                     "containerPort": 28080,
