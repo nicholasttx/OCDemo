@@ -1,0 +1,144 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: my-template
+  annotations:
+    display-name: "CronJob for Pods monitring"
+    tags: "podstate,monitor,python"
+    iconClass: icon-python    
+labels:
+  app: ${APPLICATION_NAME}
+  owner: willie
+  location: dal13
+parameters:
+  - name: SOURCE_REPOSITORY_URI
+    displayName: Source Repository URI
+    description: The URI of the repository with my application code
+    value: https://github.com/nicholasttx/CronMon.git 
+    required: true
+  - name: APPLICATION_NAME
+    description: Name of application
+    displayName: Application Name
+    value: pods-state-mon
+    required: true
+  - name: IMAGE_PULL_NAME
+    description: This is the name used for pulling image for buildconfig section
+    value: podstatepy
+    required: true
+objects:
+  - kind: BuildConfig
+    apiVersion: v1
+    metadata: 
+      name: ${APPLICATION_NAME}
+      annotations:
+        description: Test for how to make template and buildconfig/s2i
+      labels:
+        app: ${APPLICATION_NAME}
+    spec:
+      source:
+        type: Git
+        git:
+          uri: "${SOURCE_REPOSITORY_URI}"
+          ref: master
+      strategy:
+        type: Source
+        sourceStrategy:            
+          from:
+            kind: ImageStreamTag
+            name: "python:2.7"
+            namespace: openshift          
+      output:
+        to: 
+          kind: ImageStreamTag
+          name: ${IMAGE_PULL_NAME}:latest         
+      triggers:
+      - type: ImageChange
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      name: ${IMAGE_PULL_NAME}
+      namespace: openshift
+      labels:
+        app: ${APPLICATION_NAME}
+    spec: 
+      tags:
+      - name: latest      
+        referencePolicy: 
+          type: Local
+        from: 
+          kind: DockerImage
+          name: openshift/${IMAGE_PULL_NAME}
+        importPolicy:
+          insecure: true
+      
+
+
+  - kind: DeploymentConfig
+    apiVersion: v1
+    metadata:
+      labels:
+        app: ${APPLICATION_NAME}
+      name: ${APPLICATION_NAME}
+    spec:
+      replicas: 2
+      selector:
+        app: ${APPLICATION_NAME}    
+      strategy:
+        activeDeadlineSeconds: 21600
+        rollingParams:
+          intervalSeconds: 1
+          maxSurge: 25%
+          maxUnavailable: 25%
+          timeoutSeconds: 600
+          updatePeriodSeconds: 1
+        type: Rolling  
+      template:
+        metadata:
+          labels:
+            app: ${APPLICATION_NAME}       
+        spec:
+          containers:
+          - image: ${IMAGE_PULL_NAME}
+            imagePullPolicy: IfNotPresent
+            name: ${APPLICATION_NAME}
+            ports:
+            - containerPort: 18080
+              protocol: TCP  
+      triggers: 
+      - type: ImageChange
+        imageChangeParams:
+          automatic: true
+          containerNames:
+          - ${APPLICATION_NAME}    
+          from:
+            kind: ImageStreamTag
+            namespace: mydemo
+            name: ${IMAGE_PULL_NAME}:latest        
+      - type: ConfigChange            
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: ${APPLICATION_NAME}-service
+    spec:
+      ports:
+        - name: 18080-tcp
+          port: 18080
+          targetPort: 8080
+      selector:
+        app: ${APPLICATION_NAME}
+  - kind: Route
+    apiVersion: v1
+    metadata:
+      labels:
+        app: ${APPLICATION_NAME}        
+      name: ${APPLICATION_NAME}-route
+    spec:
+      host: 
+      path: 
+      to:
+        kind: Service
+        name: ${APPLICATION_NAME}-service
+      port:
+        targetPort: 18080-tcp        
+
+        
